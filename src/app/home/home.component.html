@@ -1,0 +1,114 @@
+<header id="header">
+    <div class="header-flex">
+        <div class="profile-pic">
+            <img src="../../assets/profile.png" alt=""
+                style="width: 165px; border-radius: 150px; padding: 8px;">
+        </div>
+        <div class="through">
+            <div class="social">
+                <a href="">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+            </div>
+            <div class="social">
+                <a href="">
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+            </div>
+            <div class="social">
+                <a href="https://www.linkedin.com/in/adarsh-maurya-61134a188" target="_blank">
+                    <i class="fa-brands fa-linkedin"></i>
+                </a>
+            </div>
+            <div class="social">
+                <a href="https://github.com/amauryavd" target="_blank">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+            </div>
+        </div>
+        <div class="content-section">
+            <div class="contact" [class.active]="activeLinkId === 'home'">
+                <i class="fa fa-home"></i>
+                <a (click)="onClick('home')" [class.active]="activeLinkId === 'home'">Home</a>
+            </div>
+            <div class="contact" [class.active]="activeLinkId === 'about'">
+                <i class="fa-regular fa-user" ></i>
+                <a (click)="onClick('about')" [class.active]="activeLinkId === 'about'">About</a>
+            </div>
+            <div class="contact" [class.active]="activeLinkId === 'resume'">
+                <i class="fa-solid fa-file"></i>
+                <a (click)="onClick('resume')" [class.active]="activeLinkId === 'resume'">Resume</a>
+            </div>
+            <div class="contact" [class.active]="activeLinkId === 'portfolio'">
+                <i class="fa-solid fa-newspaper"></i>
+                <a (click)="onClick('portfolio')" [class.active]="activeLinkId === 'portfolio'">Portfolio</a>
+            </div>
+            <div class="contact" [class.active]="activeLinkId === 'services'">
+                <i class="fa-solid fa-bars-progress"></i>
+                <a (click)="onClick('services')" [class.active]="activeLinkId === 'Services'">Services</a>
+            </div>
+            <div class="contact" [class.active]="activeLinkId === 'contact'">
+                <i class="fa fa-envelope"></i>
+                <a (click)="onClick('contact')"[class.active]="activeLinkId === 'contact'">Contact</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section id="home" class="d-flex flex-column justify-content-center align-items-center content">
+    <div class="header">
+        <h1>Adarsh Maurya</h1>
+        <div class="detail">
+            <div class="typing">I am Developer</div>
+        </div>
+    </div>
+</section>
+
+<main id="main" #sections>
+    <section id="about" class="content" >
+        <div class="heading">
+            <h2>About</h2>
+            <p>
+                Assistant System Engineer with 2 years of experience with a main focus on Front-end Framework
+                Angular and ASP.NET Core at backend.
+            </p>
+            <ul>
+                <li>
+                    <p>Participated in multiple projects covering different phases of the development lifecycle.</p>
+                </li>
+                <li>
+                    <p>Have theoretical knowledge and production experience. Comfortable with refactoring existing
+                        code.</p>
+                </li>
+                <li>
+                    <p>Have skills and good knowledge of open source technologies including Angular, .NET Core for
+                        the
+                        backend, SQL as a database engine, GitHub for CI/CD, and GIT as a version control system.
+                    </p>
+                </li>
+                <li>
+                    <p>Have a strong knowledge of the software development lifecycle and the ability to deliver
+                        on-time
+                        materials. Worked with both Agile (Scrum, Kanban) methodologies as an individual and team
+                        member.
+                    </p>
+                </li>
+                <li>
+                    <p>Good experience in estimations and work planning.</p>
+                </li>
+                <li>
+                    <p>Know code conventions and follow them.</p>
+                </li>
+            </ul>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, fugiat nisi mollitia pariatur eaque ipsum officiis. Explicabo minima veniam eos maiores provident tempora soluta natus nisi, repellat officia? Nam, qui!</p>
+            <br><br><br>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Qui expedita, eveniet doloremque beatae ex dolor dolores! Animi quasi dignissimos tempore corrupti fugit mollitia alias laudantium. Ut ratione dolorum autem dolores!</p>
+            <br><br><br>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, cupiditate odit. Odio hic reiciendis, recusandae fugit consequatur accusantium optio corporis velit ipsa architecto tempore ratione. Accusantium quisquam distinctio aut officia?</p>
+        </div>
+    </section>
+
+    <section id="resume">
+        
+    </section>
+</main>
