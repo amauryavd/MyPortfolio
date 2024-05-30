@@ -1,4 +1,6 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, ViewportScroller } from '@angular/common';
+import { HostListener } from '@angular/core';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -7,17 +9,53 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
+  // animations: [
+  //   trigger('withdraw', [
+  //     state('closed', style({
+  //       left: -300,
+  //     })),
+  //     state('open', style({
+  //       left: 0,
+  //     }))
+  //   ])
+  // ]
 })
 export class HomeComponent {
-
+  state = "open";
+  onStateChange: any;
   activeLinkId: string | null = 'home';
+  menuToggle: string = 'fa fa-bars';
+  mobileView = false;
+  headerStyle: any;
+  email: string = "amauryavd443@gmail.com";
   @ViewChild('sections') sections!: ElementRef;
+  screenWidth: any;
 
-  constructor(private viewportScroller: ViewportScroller) { }
+  constructor(private viewportScroller: ViewportScroller, private elementRef: ElementRef) { }
 
   ngOnInit() {
     window.addEventListener('scroll', this.onScroll.bind(this));
+    if (window.innerWidth == 1200) {
+      this.mobileView = true;
+      console.log(this.mobileView);
+
+    }
+  }
+
+  @HostListener('window:resize', ['$event.target.innerWidth'])
+  onResize(width: number) {
+    this.screenWidth = width;
+    if (width<1200) {
+      this.onStateChange = false;
+      this.headerStyle = { 'left': '-300px' };
+      this.menuToggle = "fa fa-bars";
+    } else {
+      // this.state = "closed";
+      // this.menuToggle = "fa fa-bars";
+      this.headerStyle = { 'left': 0 };
+      this.elementRef.nativeElement.ownerDocument.body.style.setProperty("overflow-y", "scroll", "important");
+    }
   }
 
   ngOnDestroy() {
@@ -27,6 +65,11 @@ export class HomeComponent {
   public onClick(elementId: string): void {
     this.viewportScroller.scrollToAnchor(elementId);
     this.activeLinkId = elementId;
+    this.onStateChange = false;
+    this.state = "closed";
+    this.menuToggle = "fa fa-bars";
+    this.screenWidth < 1200 ? this.headerStyle = { 'left': '-300px' } : this.headerStyle = { 'left': '0' };
+    this.elementRef.nativeElement.ownerDocument.body.style.setProperty("overflow-y", "scroll", "important");
   }
 
 
@@ -51,6 +94,22 @@ export class HomeComponent {
     // If no section is active, and user has scrolled to top, set 'Home' as active
     if (!foundActive && scrollPosition[1] === 0) {
       this.activeLinkId = 'home';
+    }
+
+  }
+
+  changeState() {
+    this.onStateChange = !this.onStateChange;
+    if (this.onStateChange) {
+      this.state = "open";
+      this.menuToggle = "fa-solid fa-xmark";
+      this.headerStyle = { 'left': 0 };
+      this.elementRef.nativeElement.ownerDocument.body.style.setProperty("overflow-y", "hidden", "important");
+    } else {
+      this.state = "closed";
+      this.menuToggle = "fa fa-bars";
+      this.headerStyle = { 'left': '-300px' };
+      this.elementRef.nativeElement.ownerDocument.body.style.setProperty("overflow-y", "scroll", "important");
     }
 
   }
