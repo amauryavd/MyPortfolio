@@ -109,8 +109,7 @@
   margin-left: 300px;
 }
 
-#about {
-  /* margin-top: 20px; */
+.section{
   padding: 50px;
 }
 
@@ -311,10 +310,6 @@
   width: 50px;
   height: 5px;
   background: #149ddd;
-}
-
-#resume{
-  padding: 50px;
 }
 
 /* Timeline Container */
