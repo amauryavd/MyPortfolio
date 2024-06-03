@@ -3,6 +3,8 @@ import { CommonModule, ViewportScroller } from '@angular/common';
 import { HostListener } from '@angular/core';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+// import {MatTabsModule} from '@angular/material/tabs';
+import { Observable, Observer } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -31,8 +33,20 @@ export class HomeComponent {
   email: string = "amauryavd443@gmail.com";
   @ViewChild('sections') sections!: ElementRef;
   screenWidth: any;
+  asyncTabs: Observable<ExampleTab[]>;
 
-  constructor(private viewportScroller: ViewportScroller, private elementRef: ElementRef) { }
+  constructor(private viewportScroller: ViewportScroller, private elementRef: ElementRef) {
+    this.asyncTabs = new Observable((observer: Observer<ExampleTab[]>) => {
+      setTimeout(() => {
+        observer.next([
+          {label: 'First', content: 'Content 1'},
+          {label: 'Second', content: 'Content 2'},
+          {label: 'Third', content: 'Content 3'},
+        ]);
+      }, 1000);
+    });
+
+   }
 
   ngOnInit() {
     window.addEventListener('scroll', this.onScroll.bind(this));
@@ -114,4 +128,10 @@ export class HomeComponent {
 
   }
 
+}
+
+
+export interface ExampleTab {
+  label: string;
+  content: string;
 }
