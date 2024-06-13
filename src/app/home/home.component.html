@@ -1,4 +1,5 @@
-<i [ngClass]="menuToggle" class="mobile-nav-toggle" (click)="changeState()"></i>
+<i [ngClass]="menuToggle" class="mobile-nav-toggle on-top" (click)="changeState()" [ngStyle]="menuStyle"></i>
+<i  (click)="onClick('home')" class="fa-solid fa-arrow-up mobile-nav-toggle on-bottom" *ngIf="activeLinkId != 'home'" [@enterAnimation] ></i>
 <header id="header" [ngStyle]="headerStyle">
     <div class="header-flex">
         <div class="profile-pic">
@@ -43,19 +44,23 @@
                 <i class="fa-solid fa-newspaper"></i>
                 <a (click)="onClick('portfolio')" [class.active]="activeLinkId === 'portfolio'">Portfolio</a>
             </div>
-            <div class="contact" [class.active]="activeLinkId === 'services'">
+            <!-- <div class="contact" [class.active]="activeLinkId === 'services'">
                 <i class="fa-solid fa-bars-progress"></i>
                 <a (click)="onClick('services')" [class.active]="activeLinkId === 'Services'">Services</a>
-            </div>
+            </div> -->
             <div class="contact" [class.active]="activeLinkId === 'contact'">
                 <i class="fa fa-envelope"></i>
                 <a (click)="onClick('contact')" [class.active]="activeLinkId === 'contact'">Contact</a>
             </div>
         </div>
+        <div class="content-footer">
+            <a class="download-button" type="submit" [href]="fileUrl" download="Adarh_Maurya_Resume_2024.pdf">Resume
+            </a>
+        </div>
     </div>
 </header>
 
-<section id="home" class="d-flex flex-column justify-content-center align-items-center content">
+<section id="home" class="d-flex flex-column justify-content-center align-items-center">
     <div class="header">
         <h1>Adarsh Maurya</h1>
         <div class="detail">
@@ -286,19 +291,83 @@
         </div>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum quaerat officia quos totam officiis corporis,
             labore pariatur ab, fugit vero, neque quas? Neque sapiente debitis ut porro natus laboriosam omnis?</p>
-<!--             
-        @if ((asyncTabs | async) === null) {
-        Loading tabs...
-        }
 
         <mat-tab-group>
-            @for (tab of asyncTabs | async; track tab) {
-            <mat-tab>
-                <ng-template mat-tab-label>{{tab.label}}</ng-template>
-                {{tab.content}}
+            <mat-tab label="All">
+                <div class="row" style="--bs-gutter-x: 0;">
+                    @for (item of projects; track $index) {
+                        <div class="col-lg-4" >
+                            <div class="content" [ngClass]="item.code" (click)="openPopup(item.code)">
+                                <div class="content-heading">
+                                    <h2>{{item.name}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
             </mat-tab>
-            }
-        </mat-tab-group> -->
+            <mat-tab label="Work">
+                <div class="row" style="--bs-gutter-x: 0;">
+                    @for (item of projects; track $index) {
+                        <div class="col-lg-4" *ngIf="item.type == 'work'">
+                            <div class="content" [ngClass]="item.code" (click)="openPopup(item.code)">
+                                <div class="content-heading">
+                                    <h2>{{item.name}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </mat-tab>
+            <mat-tab label="Personal">
+                <div class="row" style="--bs-gutter-x: 0;">
+                    @for (item of projects; track $index) {
+                        <div class="col-lg-4" *ngIf="item.type == 'personal'">
+                            <div class="content" [ngClass]="item.code" (click)="openPopup(item.code)">
+                                <div class="content-heading">
+                                    <h2>{{item.name}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+        
+    </section>
 
+    <section id="contact" class="section">
+        <div class="section-heading">
+            <h2>Contact</h2>
+        </div>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt saepe esse quaerat veniam fugiat necessitatibus earum facilis accusantium nobis ipsum aut harum, illo mollitia, exercitationem deserunt. Doloribus saepe consectetur tenetur!</p>
+        <div class="contact-window">
+            
+        </div>
     </section>
 </main>
+
+<div class="popup-overlay" [ngClass]="{'active': isPopupVisible}" [ngStyle]="overlayStyle"></div>
+<div class="popup-content" [ngStyle]="popupStyle" >
+    <div class="projects" *ngIf="this.showObj">
+        <!-- <div class="project-name" >
+            <h2>{{showObj.contentName}}</h2>
+            <h2>{{showObj.contentId}}</h2>
+            <h2>{{showObj.content}}</h2>
+            <h2>{{showObj.contentDetail}}</h2>
+            <h2>{{showObj.contentType}}</h2>
+        </div> -->
+        <div class="project-header">
+            <h2>{{showObj.contentName}}</h2>
+            <i class="fa-solid fa-xmark" style="font-size: 24px; cursor: pointer;" (click)="closePopup()"></i>
+        </div>
+        <div class="project-about">
+            <h3>About Project</h3>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est debitis odit ab in recusandae repellendus delectus, aspernatur maxime et quasi temporibus aliquid dolores, quisquam asperiores, corporis vero nemo soluta quod?</p>
+        </div>
+        <div class="project-contribution">
+            <h3>Contribution</h3>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est debitis odit ab in recusandae repellendus delectus, aspernatur maxime et quasi temporibus aliquid dolores, quisquam asperiores, corporis vero nemo soluta quod?</p>
+        </div>
+    </div>
+</div>
