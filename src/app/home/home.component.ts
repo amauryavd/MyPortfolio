@@ -125,6 +125,10 @@ export class HomeComponent {
     window.removeEventListener('scroll', this.onScroll.bind(this));
   }
 
+  downloadPdf(){
+    window.open("/../assets/Files/Adarh_Maurya_Resume_2024.pdf", "_blank")
+  }
+
   public onClick(elementId: string): void {
     this.viewportScroller.scrollToAnchor(elementId);
     this.activeLinkId = elementId;
