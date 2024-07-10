@@ -6,10 +6,12 @@ import { FormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Observable, Observer } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
+import { FileDownloadService } from './file-download.service';
+import { HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatTabsModule, MatButtonModule],
+  imports: [CommonModule, FormsModule, MatTabsModule, MatButtonModule, HttpClientModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   animations: [
@@ -47,48 +49,60 @@ export class HomeComponent {
   fileUrl = "/../assets/Files";
 
 
-  constructor(private viewportScroller: ViewportScroller, private elementRef: ElementRef) {
+  constructor(private viewportScroller: ViewportScroller, private elementRef: ElementRef, private fileDownloadService: FileDownloadService) {
     this.contents = [{
       contentId: 1,
       content: "dif",
       contentName: "Data Ingestion Framework",
-      contentDetail: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
+      contentDetail: "This web application developed for AbbVie and it was used for Data Migration from various source to S3 and other different endpoints.",
+      contentTech: "Angular, .NET Core, C#, Web API, SQL, AWS S3",
+      // contentContri: "Contributed in front-end development using Angular Ag-grid.",
       contentType: "work"
     },
     {
       contentId: 2,
       content: "ct",
       contentName: "Supply Chain Control Tower",
-      contentDetail: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
+      contentDetail: "This web application is used to monitor the planning, procurement, supply chain KPIs at single web portal.",
+      contentTech: "Angular, .NET Core, C#, Web API, SQL, Redshift",
+      // contentContri: "Worked at front-end development and added few pages in application.",
       contentType: "work"
     },
     {
       contentId: 3,
       content: "mdm",
-      contentName: "MDM",
-      contentDetail: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
+      contentName: "Master Data Management",
+      contentDetail: "This web application is used to support global and functional product tiers ( 0 - Not Released, 1 – High Focus, 2 – Mid Focus, 3 – Lower Focus) for Supply Chain, Quality, IME, Science and Technology and 3rd party manufacturers. ",
+      contentTech: "Angular, .NET Core, C#, Web API, SQL, Redshift ",
+      // contentContri: "Designed and developed front-end of whole application from scratch using Angular Material.",
       contentType: "work"
     },
     {
-      contentId: 3,
-      content: "mdm",
-      contentName: "MDM",
-      contentDetail: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
+      contentId: 4,
+      content: "emp",
+      contentName: "Empower Automation",
+      contentDetail: "This read-only web application is used to generate audit logs report for the users.",
+      contentTech: ".NET Core MVC, C#",
+      // contentContri: "Designed and developed whole application from scratch using .NET Core MVC",
       contentType: "work"
     },
     {
-      contentId: 3,
-      content: "mdm",
-      contentName: "MDM",
-      contentDetail: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
+      contentId: 5,
+      content: "jwt",
+      contentName: "User Authentication and Authorization",
+      contentDetail: "This application is used to authenticate and authorize the user using jwt token to access their personal data. ",
+      contentTech: "Angular, .NET Core, Dapper for requests",
+      // contentContri: "",
       contentType: "personal"
     },
     {
-      contentId: 3,
-      content: "mdm",
-      contentName: "MDM",
-      contentDetail: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
-      contentType: "work"
+      contentId: 6,
+      content: "port",
+      contentName: "Portfolio",
+      contentDetail: "This is a read-only single page application which shows my overall work based experience",
+      contentTech: "Angular",
+      // contentContri: "",
+      contentType: "personal"
     }
     ];
 
@@ -126,7 +140,23 @@ export class HomeComponent {
   }
 
   downloadPdf(){
-    window.open("/../assets/Files/Adarh_Maurya_Resume_2024.pdf", "_blank")
+    // window.open("/../assets/Files/Adarh_Maurya_Resume_2024.pdf", "_blank")
+    const fileUrl = '/../assets/Files/Adarh_Maurya_Resume_2024.pdf'; // Adjust the path as needed
+    this.fileDownloadService.downloadFile(fileUrl).subscribe(
+      (response: Blob) => {
+        const url = window.URL.createObjectURL(response);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Adarh_Maurya_Resume_2024.pdf'; // Filename to save as
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      },
+      (error: any) => {
+        console.error('Download error:', error);
+      }
+    );
   }
 
   public onClick(elementId: string): void {
@@ -209,5 +239,7 @@ export interface IContent {
   content: string;
   contentName: string;
   contentDetail: string;
+  contentTech: string;
+  // contentContri: string;
   contentType: string;
 }
