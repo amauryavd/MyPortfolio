@@ -1,5 +1,5 @@
-<i [ngClass]="menuToggle" class="mobile-nav-toggle on-top" (click)="changeState()" [ngStyle]="menuStyle"></i>
-<i  (click)="onClick('home')" class="fa-solid fa-arrow-up mobile-nav-toggle on-bottom" *ngIf="activeLinkId != 'home'" [@enterAnimation] ></i>
+<i [ngClass]="menuToggle" class="mobile-nav-toggle" (click)="changeState()" [ngStyle]="menuStyle"></i>
+<i  (click)="onClick('home')" class="fa-solid fa-arrow-up to-top" *ngIf="activeLinkId != 'home'" [@enterAnimation] ></i>
 <header id="header" [ngStyle]="headerStyle">
     <div class="header-flex">
         <div class="profile-pic">

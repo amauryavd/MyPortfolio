@@ -277,16 +277,29 @@
   line-height: 0;
   border-radius: 50px;
   cursor: pointer;
-
-}
-
-.mobile-nav-toggle.on-top {
   visibility: hidden;
   right: 15px;
   top: 15px;
 }
 
-.mobile-nav-toggle.on-bottom {
+
+.to-top {
+  position: fixed;
+  z-index: 9998;
+  border: 0;
+  font-size: 24px;
+  transition: all 0.4s;
+  outline: none !important;
+  background-color: #149ddd;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  border-radius: 50px;
+  cursor: pointer;
   right: 15px;
   bottom: 15px;
 }
