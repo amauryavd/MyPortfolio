@@ -141,7 +141,7 @@ export class HomeComponent {
 
   downloadPdf(){
     // window.open("/../assets/Files/Adarh_Maurya_Resume_2024.pdf", "_blank")
-    const fileUrl = '/../assets/Files/Adarh_Maurya_Resume_2024.pdf'; // Adjust the path as needed
+    const fileUrl = '/../assets/Adarh_Maurya_Resume_2024.pdf'; // Adjust the path as needed
     this.fileDownloadService.downloadFile(fileUrl).subscribe(
       (response: Blob) => {
         const url = window.URL.createObjectURL(response);
